@@ -6,7 +6,7 @@
             </div>
         </a-col>
         <a-col :lg="8" :md="12" :sm="24" :xs="24" class="flex flex-col items-center justify-center bg-light-50">
-            <h2 class="font-bold text-3xl text-gray-800">多租户管理系统</h2>
+            <h2 class="font-bold text-3xl text-gray-800">Pandar</h2>
             <div class="flex items-center justify-center my-5 text-gray-400 space-x-2">
                 <span class="h-[1px] w-16 bg-gray-300"></span>
                 <span>账号密码登录</span>

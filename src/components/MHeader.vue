@@ -2,7 +2,7 @@
     <div class="w-[100%] flex justify-between items-center">
         <div class="flex items-center ml-4 cursor-pointer" @click="logoClick()">
             <img class="w-[35px] h-[35px]" src="../assets/logo.png" />
-            <span class="logo-text">多租户管理系统</span>
+            <span class="logo-text">Pandar</span>
         </div>
         <div class="flex items-center">
             <a-space>

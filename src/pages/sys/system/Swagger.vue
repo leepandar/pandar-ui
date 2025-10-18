@@ -1,5 +1,5 @@
 <template>
-    <div class="w-[100%]" style="height: calc(100% - 50px)" v-if="hasPerm(['system:swagger'])">
+    <div class="w-[100%]" style="height: calc(100% - 50px)" v-if="hasPerm(['sys:swagger'])">
         <iframe class="w-[100%] h-[100%]" :src="swaggerUrl"></iframe>
     </div>
     <div class="w-[100%] flex items-center" style="height: calc(100% - 50px)" v-else>

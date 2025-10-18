@@ -13,7 +13,7 @@ import Login from '~/pages/login.vue'
 //404页面
 import NotFound from '~/pages/404.vue'
 //网页标题
-const pageTitle = '极简多租户管理系统'
+const pageTitle = 'Pandar'
 //公共路由，所有用户共享
 const commonRoutes = [
     {
