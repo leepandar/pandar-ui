@@ -45,7 +45,7 @@
     </div>
 </template>
 <script setup>
-import {getNoticeByNoticeIdApi, getPageHomeNoticeListApi} from "~/api/notice.js";
+import {getNoticeByNoticeIdApi, getPageNoticeListApi} from "~/api/notice.js";
 import {reactive, ref} from "vue";
 import {useSysStore} from "~/store/module/sys-store.js";
 
@@ -75,7 +75,7 @@ const datatable = reactive({
 //查询数据列表
 const getPageNoticeList = () => {
     datatable.loading = true
-    getPageHomeNoticeListApi(searchForm).then(res => {
+  getPageNoticeListApi(searchForm).then(res => {
         datatable.records = res.records
         datatable.total = res.total
     }).finally(() => {

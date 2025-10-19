@@ -2,14 +2,14 @@ import axios from '~/axios'
 
 //添加用户
 export function addUserApi(data) {
-    return axios.post('/sys/user/addUser', data)
+    return axios.post('/sys/user/add', data)
 }
 
 //删除用户
 export function deleteUserByUserIdApi(userId) {
     return axios({
         method: 'DELETE',
-        url: '/sys/user/deleteUserByUserId',
+        url: '/sys/user/delete',
         params: {
             userId: userId
         }
@@ -18,36 +18,36 @@ export function deleteUserByUserIdApi(userId) {
 
 //修改用户
 export function updateUserByUserIdApi(data) {
-    return axios.put('/sys/user/updateUserByUserId', data)
+    return axios.put('/sys/user/edit', data)
 }
 
 //获取用户列表 - 分页
 export function getPageUserListApi(params) {
     return axios({
         method: 'GET',
-        url: '/sys/user/getPageUserList',
+        url: '/sys/user/page',
         params: params
     })
 }
 
 //获取用户详细信息
 export function getUserByUserIdApi(userId) {
-    return axios.get(`/sys/user/getUserByUserId/${userId}`)
+    return axios.get(`/sys/user/${userId}`)
 }
 
 //获取用户信息
 export function getUserInfoApi() {
-    return axios.get('/sys/user/getUserInfo')
+    return axios.get('/sys/user/info')
 }
 
 //获取图形验证码
 export function getImageCaptchaApi() {
-    return axios.get('/sys/user/getImageCaptcha')
+    return axios.get('/sys/user/captcha')
 }
 
 //登录
 export function loginApi(loginForm) {
-    return axios.post('/sys/login', {
+    return axios.post('/auth/login', {
         username: loginForm.username,
         password: loginForm.password,
         captcha: loginForm.captcha,
@@ -67,15 +67,15 @@ export function resetPasswordApi(rePasswordForm) {
 export function updateUserAvatarApi(userAvatar) {
     let params = new FormData();
     params.append('userAvatar', userAvatar);
-    return axios.post('/sys/user/updateUserAvatar', params)
+    return axios.post('/sys/user/avatar', params)
 }
 
 //用户设置 -> 修改用户信息
 export function updateUserInfoApi(form) {
-    return axios.post('/sys/user/updateUserInfo', form)
+    return axios.post('/sys/user/info', form)
 }
 
 //退出
 export function logoutApi() {
-    return axios.post('/sys/logout')
+    return axios.post('/auth/logout')
 }

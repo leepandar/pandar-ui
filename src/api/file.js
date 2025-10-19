@@ -2,7 +2,7 @@ import axios from '~/axios'
 
 //上传文件
 export function uploadFileApi(data, onUploadProgress) {
-    return axios.post('/sys/file/uploadFile', data, {
+    return axios.post('/sys/file/upload', data, {
         onUploadProgress:(e)=>{
             //获取上传进度
             if (onUploadProgress) {
@@ -16,7 +16,7 @@ export function uploadFileApi(data, onUploadProgress) {
 export function deleteFileApi(fileId) {
     return axios({
         method: 'DELETE',
-        url: '/sys/file/deleteFile',
+        url: '/sys/file/delete',
         params: {
             fileId: fileId
         }
@@ -27,7 +27,7 @@ export function deleteFileApi(fileId) {
 export function getPageFileListApi(params) {
     return axios({
         method: 'GET',
-        url: '/sys/file/getPageFileList',
+        url: '/sys/file/page',
         params: params
     })
 }
