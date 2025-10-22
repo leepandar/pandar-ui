@@ -35,7 +35,9 @@ export const DICT = {
     //租户列表 -> 额外字典
     tenantList: 'dict-tenant-list',
     //存储列表 -> 额外字典
-    storageList: 'storage-list'
+    storageList: 'storage-list',
+    //操作日志业务类型
+    businessType: 'business-type'
 }
 
 /**

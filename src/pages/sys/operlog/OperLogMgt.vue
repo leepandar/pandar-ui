@@ -6,15 +6,12 @@
       <!-- 查询条件 -->
       <a-row class="w-full" v-if="showSearchRow">
         <a-form :model="searchForm" layout="inline" label-align="left" size="small">
-          <a-form-item field="postName" label="岗位名称">
-            <a-input v-model="searchForm.postName" placeholder="岗位名称"/>
+          <a-form-item field="title" label="操作模块">
+            <a-input v-model="searchForm.title" placeholder="操作模块"/>
           </a-form-item>
-          <a-form-item field="postCode" label="岗位编码">
-            <a-input v-model="searchForm.postCode" placeholder="岗位编码"/>
-          </a-form-item>
-          <a-form-item field="status" label="岗位状态">
-            <a-select v-model="searchForm.status" placeholder="岗位状态" allow-clear>
-              <a-option v-for="(d, index) in dicts[proxy.DICT.commonNumberStatus]" :key="index" :value="d.dictKey"
+          <a-form-item field="businessType" label="业务类型">
+            <a-select v-model="searchForm.businessType" placeholder="业务类型" allow-clear>
+              <a-option v-for="(d, index) in dicts[proxy.DICT.businessType]" :key="index" :value="d.dictKey"
                         :label="d.dictValue"/>
             </a-select>
           </a-form-item>
@@ -41,15 +38,6 @@
       <!-- 数据操作区 -->
       <a-row class="w-full flex justify-between">
         <a-space>
-          <!-- 添加 -->
-          <a-button v-perm="['sys:post:add']" type="primary" size="small" @click="addBtnClick()">
-            <template #icon>
-              <icon-plus/>
-            </template>
-            <template #default>添加</template>
-          </a-button>
-        </a-space>
-        <a-space>
           <!-- 刷新 -->
           <a-button shape="circle" size="small" @click="getPageList(false)">
             <template #icon>
@@ -70,30 +58,13 @@
       <a-row class="w-full flex-1 mt-3 overflow-y-auto">
         <a-table class="w-[100%]" :scroll="{ y: '100%' }" :columns="datatable.columns" :data="datatable.records"
                  :loading="datatable.loading" :pagination="false" table-layout-fixed>
-          <!-- 岗位名称 -->
-          <template #postName="{ record }">
-            <a-link @click="detailBtnClick(record.postId)" icon>{{ record.postName }}</a-link>
+          <!-- 操作模块 -->
+          <template #title="{ record }">
+            <a-link @click="detailBtnClick(record.operId)" icon>{{ record.title }}</a-link>
           </template>
-          <!-- 岗位状态 -->
-          <template #status="{ record }">
-            <dict-convert :dict-data="dicts[proxy.DICT.commonNumberStatus]" :dict-key="record.status"/>
-          </template>
-          <!-- 操作 -->
-          <template #operation="{ record }">
-            <a-button v-perm="['sys:post:edit']" type="text" size="mini" @click="updateBtnClick(record.postId)">
-              <template #icon>
-                <icon-edit/>
-              </template>
-              <template #default>修改</template>
-            </a-button>
-            <a-popconfirm content="确认要删除吗?" @ok="deleteBtnOkClick(record.postId)">
-              <a-button v-perm="['sys:post:del']" type="text" status="danger" size="mini">
-                <template #icon>
-                  <icon-delete/>
-                </template>
-                <template #default>删除</template>
-              </a-button>
-            </a-popconfirm>
+          <!-- 业务类型 -->
+          <template #businessType="{ record }">
+            <dict-convert :dict-data="dicts[proxy.DICT.businessType]" :dict-key="record.businessType"/>
           </template>
         </a-table>
       </a-row>
@@ -119,24 +90,21 @@
 
 <script setup>
 import {ref, reactive, getCurrentInstance, shallowRef} from 'vue'
-import {getPagePostListApi, deletePostByPostIdApi} from '~/api/post.js'
-import PostEdit from "~/pages/sys/post/PostEdit.vue";
-import PostDetail from "~/pages/sys/post/PostDetail.vue";
+import {getPageOperlogListApi} from '~/api/operlog.js'
+import OperLogDetail from "~/pages/sys/operlog/OperLogDetail.vue";
 
 //全局实例
 const {proxy} = getCurrentInstance()
 //加载字典
-const dicts = proxy.LoadDicts([proxy.DICT.commonNumberStatus])
+const dicts = proxy.LoadDicts([proxy.DICT.businessType])
 //是否展示搜索区域
 const showSearchRow = ref(true)
 //搜索参数表单
 const searchForm = reactive({
-  //岗位名称
-  postName: null,
-  //岗位编码
-  postCode: null,
-  //岗位状态
-  status: null,
+  //操作模块
+  title: null,
+  //业务类型
+  businessType: null,
   //页码
   pageNum: 1,
   //条数
@@ -146,11 +114,11 @@ const searchForm = reactive({
 const datatable = reactive({
   //列配置
   columns: [
-    {title: '岗位名称', dataIndex: 'postName', slotName: 'postName', align: 'center'},
-    {title: '岗位编码', dataIndex: 'postCode', align: 'center'},
-    {title: '排序', dataIndex: 'postSort', align: 'center'},
-    {title: '岗位状态', dataIndex: 'status', slotName: 'status', align: 'center'},
-    {title: '操作', slotName: 'operation', align: 'center', width: 160, fixed: 'right'}
+    {title: '操作模块', dataIndex: 'title', slotName: 'title', align: 'center'},
+    {title: '业务类型', dataIndex: 'businessType', slotName: 'businessType',align: 'center'},
+    {title: '请求方法', dataIndex: 'method', align: 'center'},
+    {title: '操作地点', dataIndex: 'operLocation', align: 'center'},
+    {title: '操作状态', dataIndex: 'status', align: 'center'}
   ],
   //加载
   loading: false,
@@ -162,14 +130,13 @@ const datatable = reactive({
 //查询数据列表
 const getPageList = (isReset = false) => {
   if (isReset) {
-    searchForm.postName = null
-    searchForm.postCode = null
-    searchForm.status = null
+    searchForm.title = null
+    searchForm.businessType = null
     searchForm.pageNum = 1
     searchForm.pageSize = 10
   }
   datatable.loading = true
-  getPagePostListApi(searchForm).then(res => {
+  getPageOperlogListApi(searchForm).then(res => {
     datatable.records = res.records
     datatable.total = res.total
   }).finally(() => {
@@ -181,40 +148,18 @@ const modal = reactive({
   //是否显示
   visible: false,
   //模态框标题
-  title: '岗位管理',
+  title: '操作日志',
   //传递参数
   params: {},
   //组件名称
   component: null
 });
-//添加按钮 -> 点击事件
-const addBtnClick = () => {
-  modal.visible = true
-  modal.title = '添加岗位'
-  modal.params = {operationType: proxy.operationType.add.type}
-  modal.component = shallowRef(PostEdit)
-}
-//表格行数据 "修改" -> 点击
-const updateBtnClick = (postId) => {
-  modal.visible = true
-  modal.title = '修改岗位'
-  modal.params = {operationType: proxy.operationType.update.type, postId: postId}
-  modal.component = shallowRef(PostEdit)
-}
 //表格行数据 "查看" -> 点击
-const detailBtnClick = (postId) => {
+const detailBtnClick = (operId) => {
   modal.visible = true
-  modal.title = '岗位详细信息'
-  modal.params = {operationType: proxy.operationType.detail.type, postId: postId}
-  modal.component = shallowRef(PostDetail)
-}
-//表格行数据 "删除" -> 确认
-const deleteBtnOkClick = (postId) => {
-  deletePostByPostIdApi(postId).then(() => {
-    proxy.$msg.success(proxy.operationType.delete.success)
-    //刷新列表
-    getPageList()
-  })
+  modal.title = '操作日志详细信息'
+  modal.params = {operationType: proxy.operationType.detail.type, operId: operId}
+  modal.component = shallowRef(OperLogDetail)
 }
 //模态框 -> 确认
 const onOk = () => {
