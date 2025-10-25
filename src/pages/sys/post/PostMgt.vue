@@ -18,20 +18,22 @@
                         :label="d.dictValue"/>
             </a-select>
           </a-form-item>
-          <a-space>
-            <a-button type="primary" @click="getPageList(false)">
-              <template #icon>
-                <icon-search/>
-              </template>
-              <template #default>查询</template>
-            </a-button>
-            <a-button @click="getPageList(true)">
-              <template #icon>
-                <icon-sync/>
-              </template>
-              <template #default>重置</template>
-            </a-button>
-          </a-space>
+          <a-form-item>
+            <a-space>
+              <a-button type="primary" @click="getPageList(false)">
+                <template #icon>
+                  <icon-search/>
+                </template>
+                <template #default>查询</template>
+              </a-button>
+              <a-button @click="getPageList(true)">
+                <template #icon>
+                  <icon-sync/>
+                </template>
+                <template #default>重置</template>
+              </a-button>
+            </a-space>
+          </a-form-item>
         </a-form>
       </a-row>
 
@@ -42,7 +44,7 @@
       <a-row class="w-full flex justify-between">
         <a-space>
           <!-- 添加 -->
-          <a-button v-perm="['sys:post:add']" type="primary" size="small" @click="addBtnClick()">
+          <a-button v-perm="['sys:post:add']"  size="small" @click="addBtnClick()">
             <template #icon>
               <icon-plus/>
             </template>

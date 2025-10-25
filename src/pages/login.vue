@@ -1,11 +1,11 @@
 <template>
     <a-row class="min-h-screen bg-indigo-400" align="stretch">
-        <a-col :lg="16" :md="12" :sm="24" :xs="24" class="flex items-center justify-center">
+        <a-col :lg="12" :md="12" :sm="24" :xs="24" class="flex items-center justify-center">
             <div>
-                <img class="login-pic-animation" style="width: 35em;" src="../assets/login-pic.png" alt="">
+                <img class="login-pic-animation" style="width: 30em;" src="../assets/login-pic.png" alt="">
             </div>
         </a-col>
-        <a-col :lg="8" :md="12" :sm="24" :xs="24" class="flex flex-col items-center justify-center bg-light-50">
+        <a-col :lg="12" :md="12" :sm="24" :xs="24" class="flex flex-col items-center justify-center bg-light-50">
             <h2 class="font-bold text-3xl text-gray-800">Pandar</h2>
             <div class="flex items-center justify-center my-5 text-gray-400 space-x-2">
                 <span class="h-[1px] w-16 bg-gray-300"></span>
@@ -43,8 +43,6 @@
                     <a-button type="primary" :loading="loginLoading" class="w-[100%]" @click="loginSubmitClick()">登录</a-button>
                 </a-form-item>
             </a-form>
-            <p>管理员账号/密码：admin/111111</p>
-            <p class="mt-2"> 租户账号/密码：dongdong/111111</p>
         </a-col>
     </a-row>
 </template>

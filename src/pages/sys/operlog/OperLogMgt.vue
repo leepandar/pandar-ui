@@ -15,20 +15,22 @@
                         :label="d.dictValue"/>
             </a-select>
           </a-form-item>
-          <a-space>
-            <a-button type="primary" @click="getPageList(false)">
-              <template #icon>
-                <icon-search/>
-              </template>
-              <template #default>查询</template>
-            </a-button>
-            <a-button @click="getPageList(true)">
-              <template #icon>
-                <icon-sync/>
-              </template>
-              <template #default>重置</template>
-            </a-button>
-          </a-space>
+          <a-form-item>
+            <a-space>
+              <a-button type="primary" @click="getPageList(false)">
+                <template #icon>
+                  <icon-search/>
+                </template>
+                <template #default>查询</template>
+              </a-button>
+              <a-button @click="getPageList(true)">
+                <template #icon>
+                  <icon-sync/>
+                </template>
+                <template #default>重置</template>
+              </a-button>
+            </a-space>
+          </a-form-item>
         </a-form>
       </a-row>
 
@@ -115,7 +117,7 @@ const datatable = reactive({
   //列配置
   columns: [
     {title: '操作模块', dataIndex: 'title', slotName: 'title', align: 'center'},
-    {title: '业务类型', dataIndex: 'businessType', slotName: 'businessType',align: 'center'},
+    {title: '业务类型', dataIndex: 'businessType', slotName: 'businessType', align: 'center'},
     {title: '请求方法', dataIndex: 'method', align: 'center'},
     {title: '操作地点', dataIndex: 'operLocation', align: 'center'},
     {title: '操作状态', dataIndex: 'status', align: 'center'}

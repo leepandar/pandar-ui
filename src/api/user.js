@@ -42,7 +42,7 @@ export function getUserInfoApi() {
 
 //获取图形验证码
 export function getImageCaptchaApi() {
-    return axios.get('/sys/user/captcha')
+    return axios.get('/auth/captcha')
 }
 
 //登录
